@@ -1,0 +1,180 @@
+CRITICAL - 2024-03-18 05:49:37 --> Error: Class "App\Controllers\PageNotFoundException" not found
+in APPPATH\Controllers\pages.php on line 16.
+ 1 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\Pages->view('mahasiswa')
+ 2 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Pages))
+ 3 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('D:\\D3-TI\\Semster 4\\PBF\\Tugas1_pbf\\public\\index.php')
+CRITICAL - 2024-03-18 05:52:03 --> Error: Class "App\Controllers\PageNotFoundException" not found
+in APPPATH\Controllers\pages.php on line 16.
+ 1 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\Pages->view('shop')
+ 2 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Pages))
+ 3 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('D:\\D3-TI\\Semster 4\\PBF\\Tugas1_pbf\\public\\index.php')
+CRITICAL - 2024-03-18 05:56:46 --> Error: Class "App\Controllers\PageNotFoundException" not found
+in APPPATH\Controllers\pages.php on line 16.
+ 1 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\Pages->view('mahasiswa')
+ 2 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Pages))
+ 3 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('D:\\D3-TI\\Semster 4\\PBF\\Tugas1_pbf\\public\\index.php')
+CRITICAL - 2024-03-18 06:22:10 --> Error: Class "App\Controllers\PageNotFoundException" not found
+in APPPATH\Controllers\pages.php on line 16.
+ 1 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\Pages->view('news')
+ 2 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Pages))
+ 3 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('D:\\D3-TI\\Semster 4\\PBF\\Tugas1_pbf\\public\\index.php')
+CRITICAL - 2024-03-18 06:22:12 --> Error: Class "App\Controllers\PageNotFoundException" not found
+in APPPATH\Controllers\pages.php on line 16.
+ 1 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\Pages->view('news')
+ 2 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Pages))
+ 3 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('D:\\D3-TI\\Semster 4\\PBF\\Tugas1_pbf\\public\\index.php')
+CRITICAL - 2024-03-18 06:23:08 --> ParseError: syntax error, unexpected token "public", expecting end of file
+in APPPATH\Models\NewsModel.php on line 11.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(288): CodeIgniter\Autoloader\Autoloader->includeFile('D:\\D3-TI\\Semster 4\\PBF\\Tugas1_pbf\\app\\Models\\NewsModel.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(266): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Models\\NewsModel')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Models\\NewsModel')
+ 4 SYSTEMPATH\Config\Factories.php(280): class_exists('App\\Models\\NewsModel')
+ 5 SYSTEMPATH\Config\Factories.php(199): CodeIgniter\Config\Factories::locateClass([...], 'App\\Models\\NewsModel')
+ 6 SYSTEMPATH\Config\Factories.php(158): CodeIgniter\Config\Factories::getDefinedInstance([...], 'App\\Models\\NewsModel', [...])
+ 7 SYSTEMPATH\Common.php(809): CodeIgniter\Config\Factories::__callStatic('models', [...])
+ 8 APPPATH\Controllers\News.php(11): model('App\\Models\\NewsModel')
+ 9 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\News->index()
+10 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\News))
+11 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('D:\\D3-TI\\Semster 4\\PBF\\Tugas1_pbf\\public\\index.php')
+CRITICAL - 2024-03-18 06:23:09 --> ParseError: syntax error, unexpected token "public", expecting end of file
+in APPPATH\Models\NewsModel.php on line 11.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(288): CodeIgniter\Autoloader\Autoloader->includeFile('D:\\D3-TI\\Semster 4\\PBF\\Tugas1_pbf\\app\\Models\\NewsModel.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(266): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Models\\NewsModel')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Models\\NewsModel')
+ 4 SYSTEMPATH\Config\Factories.php(280): class_exists('App\\Models\\NewsModel')
+ 5 SYSTEMPATH\Config\Factories.php(199): CodeIgniter\Config\Factories::locateClass([...], 'App\\Models\\NewsModel')
+ 6 SYSTEMPATH\Config\Factories.php(158): CodeIgniter\Config\Factories::getDefinedInstance([...], 'App\\Models\\NewsModel', [...])
+ 7 SYSTEMPATH\Common.php(809): CodeIgniter\Config\Factories::__callStatic('models', [...])
+ 8 APPPATH\Controllers\News.php(11): model('App\\Models\\NewsModel')
+ 9 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\News->index()
+10 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\News))
+11 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('D:\\D3-TI\\Semster 4\\PBF\\Tugas1_pbf\\public\\index.php')
+CRITICAL - 2024-03-18 06:23:51 --> ParseError: syntax error, unexpected token "public", expecting end of file
+in APPPATH\Models\NewsModel.php on line 11.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(288): CodeIgniter\Autoloader\Autoloader->includeFile('D:\\D3-TI\\Semster 4\\PBF\\Tugas1_pbf\\app\\Models\\NewsModel.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(266): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Models\\NewsModel')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Models\\NewsModel')
+ 4 SYSTEMPATH\Config\Factories.php(280): class_exists('App\\Models\\NewsModel')
+ 5 SYSTEMPATH\Config\Factories.php(199): CodeIgniter\Config\Factories::locateClass([...], 'App\\Models\\NewsModel')
+ 6 SYSTEMPATH\Config\Factories.php(158): CodeIgniter\Config\Factories::getDefinedInstance([...], 'App\\Models\\NewsModel', [...])
+ 7 SYSTEMPATH\Common.php(809): CodeIgniter\Config\Factories::__callStatic('models', [...])
+ 8 APPPATH\Controllers\News.php(11): model('App\\Models\\NewsModel')
+ 9 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\News->index()
+10 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\News))
+11 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('D:\\D3-TI\\Semster 4\\PBF\\Tugas1_pbf\\public\\index.php')
+CRITICAL - 2024-03-18 06:23:52 --> ParseError: syntax error, unexpected token "public", expecting end of file
+in APPPATH\Models\NewsModel.php on line 11.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(288): CodeIgniter\Autoloader\Autoloader->includeFile('D:\\D3-TI\\Semster 4\\PBF\\Tugas1_pbf\\app\\Models\\NewsModel.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(266): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Models\\NewsModel')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Models\\NewsModel')
+ 4 SYSTEMPATH\Config\Factories.php(280): class_exists('App\\Models\\NewsModel')
+ 5 SYSTEMPATH\Config\Factories.php(199): CodeIgniter\Config\Factories::locateClass([...], 'App\\Models\\NewsModel')
+ 6 SYSTEMPATH\Config\Factories.php(158): CodeIgniter\Config\Factories::getDefinedInstance([...], 'App\\Models\\NewsModel', [...])
+ 7 SYSTEMPATH\Common.php(809): CodeIgniter\Config\Factories::__callStatic('models', [...])
+ 8 APPPATH\Controllers\News.php(11): model('App\\Models\\NewsModel')
+ 9 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\News->index()
+10 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\News))
+11 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('D:\\D3-TI\\Semster 4\\PBF\\Tugas1_pbf\\public\\index.php')
+CRITICAL - 2024-03-18 06:24:34 --> ParseError: Unclosed '{' on line 8
+in APPPATH\Controllers\News.php on line 31.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(288): CodeIgniter\Autoloader\Autoloader->includeFile('D:\\D3-TI\\Semster 4\\PBF\\Tugas1_pbf\\app\\Controllers\\News.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(266): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\News')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\News')
+ 4 SYSTEMPATH\CodeIgniter.php(900): class_exists('\\App\\Controllers\\News', true)
+ 5 SYSTEMPATH\CodeIgniter.php(489): CodeIgniter\CodeIgniter->startController()
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('D:\\D3-TI\\Semster 4\\PBF\\Tugas1_pbf\\public\\index.php')
+CRITICAL - 2024-03-18 06:24:35 --> ParseError: Unclosed '{' on line 8
+in APPPATH\Controllers\News.php on line 31.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(288): CodeIgniter\Autoloader\Autoloader->includeFile('D:\\D3-TI\\Semster 4\\PBF\\Tugas1_pbf\\app\\Controllers\\News.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(266): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\News')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\News')
+ 4 SYSTEMPATH\CodeIgniter.php(900): class_exists('\\App\\Controllers\\News', true)
+ 5 SYSTEMPATH\CodeIgniter.php(489): CodeIgniter\CodeIgniter->startController()
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('D:\\D3-TI\\Semster 4\\PBF\\Tugas1_pbf\\public\\index.php')
+CRITICAL - 2024-03-18 06:24:49 --> ParseError: syntax error, unexpected token "public", expecting end of file
+in APPPATH\Models\NewsModel.php on line 11.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(288): CodeIgniter\Autoloader\Autoloader->includeFile('D:\\D3-TI\\Semster 4\\PBF\\Tugas1_pbf\\app\\Models\\NewsModel.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(266): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Models\\NewsModel')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Models\\NewsModel')
+ 4 SYSTEMPATH\Config\Factories.php(280): class_exists('App\\Models\\NewsModel')
+ 5 SYSTEMPATH\Config\Factories.php(199): CodeIgniter\Config\Factories::locateClass([...], 'App\\Models\\NewsModel')
+ 6 SYSTEMPATH\Config\Factories.php(158): CodeIgniter\Config\Factories::getDefinedInstance([...], 'App\\Models\\NewsModel', [...])
+ 7 SYSTEMPATH\Common.php(809): CodeIgniter\Config\Factories::__callStatic('models', [...])
+ 8 APPPATH\Controllers\News.php(11): model('App\\Models\\NewsModel')
+ 9 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\News->index()
+10 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\News))
+11 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('D:\\D3-TI\\Semster 4\\PBF\\Tugas1_pbf\\public\\index.php')
+CRITICAL - 2024-03-18 06:24:50 --> ParseError: syntax error, unexpected token "public", expecting end of file
+in APPPATH\Models\NewsModel.php on line 11.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(288): CodeIgniter\Autoloader\Autoloader->includeFile('D:\\D3-TI\\Semster 4\\PBF\\Tugas1_pbf\\app\\Models\\NewsModel.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(266): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Models\\NewsModel')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Models\\NewsModel')
+ 4 SYSTEMPATH\Config\Factories.php(280): class_exists('App\\Models\\NewsModel')
+ 5 SYSTEMPATH\Config\Factories.php(199): CodeIgniter\Config\Factories::locateClass([...], 'App\\Models\\NewsModel')
+ 6 SYSTEMPATH\Config\Factories.php(158): CodeIgniter\Config\Factories::getDefinedInstance([...], 'App\\Models\\NewsModel', [...])
+ 7 SYSTEMPATH\Common.php(809): CodeIgniter\Config\Factories::__callStatic('models', [...])
+ 8 APPPATH\Controllers\News.php(11): model('App\\Models\\NewsModel')
+ 9 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\News->index()
+10 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\News))
+11 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('D:\\D3-TI\\Semster 4\\PBF\\Tugas1_pbf\\public\\index.php')
+CRITICAL - 2024-03-18 06:28:19 --> Error: Class "App\Controllers\PageNotFoundException" not found
+in APPPATH\Controllers\News.php on line 23.
+ 1 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\News->show('1')
+ 2 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\News))
+ 3 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('D:\\D3-TI\\Semster 4\\PBF\\Tugas1_pbf\\public\\index.php')
+CRITICAL - 2024-03-18 06:29:00 --> Error: Class "App\Controllers\PageNotFoundException" not found
+in APPPATH\Controllers\News.php on line 23.
+ 1 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\News->show('1')
+ 2 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\News))
+ 3 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('D:\\D3-TI\\Semster 4\\PBF\\Tugas1_pbf\\public\\index.php')
+CRITICAL - 2024-03-18 06:29:01 --> Error: Class "App\Controllers\PageNotFoundException" not found
+in APPPATH\Controllers\News.php on line 23.
+ 1 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\News->show('1')
+ 2 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\News))
+ 3 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('D:\\D3-TI\\Semster 4\\PBF\\Tugas1_pbf\\public\\index.php')
+CRITICAL - 2024-03-18 06:32:27 --> ParseError: syntax error, unexpected token "{", expecting "function" or "const"
+in APPPATH\Controllers\News.php on line 14.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(288): CodeIgniter\Autoloader\Autoloader->includeFile('D:\\D3-TI\\Semster 4\\PBF\\Tugas1_pbf\\app\\Controllers\\News.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(266): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\News')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\News')
+ 4 SYSTEMPATH\CodeIgniter.php(900): class_exists('\\App\\Controllers\\News', true)
+ 5 SYSTEMPATH\CodeIgniter.php(489): CodeIgniter\CodeIgniter->startController()
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('D:\\D3-TI\\Semster 4\\PBF\\Tugas1_pbf\\public\\index.php')
+INFO - 2024-03-18 07:24:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-18 07:25:53 --> CSRF token verified.
+INFO - 2024-03-18 07:25:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-18 07:26:00 --> CSRF token verified.
