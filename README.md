@@ -21,10 +21,10 @@ Panduan Pengguna adalah dokumentasi utama untuk CodeIgniter 4.
 
 Panduan Pengguna yang sedang dalam proses dapat ditemukan di sini . Seperti halnya kerangka kerja lainnya, kerangka ini masih dalam proses, dan akan mengalami perubahan seiring berjalannya waktu pada struktur, penjelasan, dan lain-lain.
 
-# Pemula Aplikasi
-Repositori starter aplikasi CodeIgniter 4 menyimpan aplikasi kerangka, dengan ketergantungan komposer pada versi kerangka terbaru yang dirilis.
+# Selamat datang di CodeIgniter4
+CodeIgniter adalah Kerangka Pengembangan Aplikasi - sebuah toolkit - untuk orang-orang yang membangun situs web menggunakan PHP. Tujuannya adalah untuk memungkinkan Anda mengembangkan proyek jauh lebih cepat daripada jika Anda menulis kode dari awal, dengan menyediakan kumpulan perpustakaan yang kaya untuk tugas-tugas umum, serta antarmuka sederhana dan struktur logis untuk mengakses perpustakaan ini. CodeIgniter memungkinkan Anda fokus secara kreatif pada proyek Anda dengan meminimalkan jumlah kode yang dibutuhkan untuk tugas tertentu.
 
-Teknik instalasi ini cocok untuk pengembang yang ingin memulai proyek baru berbasis CodeIgniter4.
+Jika memungkinkan, CodeIgniter dibuat sefleksibel mungkin, memungkinkan Anda bekerja sesuai keinginan Anda, tidak dipaksa bekerja dengan cara tertentu. Kerangka kerja dapat memiliki bagian-bagian inti yang mudah diperluas atau diganti seluruhnya untuk membuat sistem bekerja sesuai kebutuhan Anda. Singkatnya, CodeIgniter adalah kerangka kerja lunak yang mencoba menyediakan alat yang Anda butuhkan tanpa mengganggu.
 
 # Instalasi
 Di folder di atas root proyek Anda:
