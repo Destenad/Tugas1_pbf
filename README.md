@@ -61,8 +61,8 @@ php spark serve
 ```
 
 Ini akan meluncurkan server dan sekarang Anda dapat melihat aplikasi Anda di browser Anda di http://localhost:8080 .
-
-# Menetapkan Aturan Perutean
+# Halaman Statis
+### Menetapkan Aturan Perutean
 Perutean mengaitkan URI dengan metode pengontrol. Pengontrol hanyalah sebuah kelas yang membantu mendelegasikan pekerjaan. Kami akan membuat pengontrol nanti.
 
 Mari kita siapkan aturan perutean. Buka file rute yang terletak di app/Config/Routes.php .
@@ -188,8 +188,8 @@ Sekarang kunjungi localhost:8080/home . Apakah itu dirutekan dengan benar ke vie
 Anda akan melihat sesuatu seperti berikut:
 ![/home](https://github.com/Destenad/Tugas1_pbf/assets/134569575/b529cade-e3a4-4560-89e5-6b598c67e7c0)
 
-
-# Membuat Database
+# Bagian Berita
+### Membuat Database
 Pada tahap ini akan menyiapkan database yang akan di gunakan. Dalam tutorial ini kita akan mengeluarkan perintah database (mysql, MySQL Workbench, atau phpMyAdmin).
 
 Anda perlu membuat database ci4 dapat digunakan untuk tutorial ini, dan kemudian mengkonfigurasi CodeIgniter untuk menggunakannya.
@@ -431,6 +431,239 @@ Satu-satunya hal yang perlu dilakukan adalah membuat tampilan terkait di app/Vie
 ```
 Arahkan browser Anda ke halaman “news”, yaitu localhost:8080/news , Anda akan melihat daftar item berita, yang masing-masing memiliki link untuk menampilkan satu artikel saja.
 ![news](https://github.com/Destenad/Tugas1_pbf/assets/134569575/cc3e2e5b-f185-4cf7-b813-233b63bc5283)
+
+# Buat Item Berita
+Anda sekarang tahu bagaimana Anda bisa membaca data dari database menggunakan CodeIgniter, tapi Anda belum menulis informasi apa pun ke database. Di bagian ini, Anda akan memperluas pengontrol berita dan model yang dibuat sebelumnya untuk menyertakan fungsi ini.
+### Aktifkan Filter CSRF
+Sebelum membuat formulir, aktifkan perlindungan CSRF.
+
+Buka file app/Config/Filters.php dan perbarui $methodsproperti seperti berikut:
+```bash
+<?php
+
+namespace Config;
+
+use CodeIgniter\Config\BaseConfig;
+
+class Filters extends BaseConfig
+{
+    // ...
+
+    public $methods = [
+        'post' => ['csrf'],
+    ];
+
+    // ...
+}
+```
+### Menambahkan Aturan Perutean
+Sebelum Anda dapat mulai menambahkan item berita ke dalam aplikasi CodeIgniter Anda, Anda harus menambahkan aturan tambahan ke file app/Config/Routes.php . Pastikan file Anda berisi yang berikut ini:
+```bash
+<?php
+
+// ...
+
+use App\Controllers\News;
+use App\Controllers\Pages;
+
+$routes->get('news', [News::class, 'index']);
+$routes->get('news/new', [News::class, 'new']); // Add this line
+$routes->post('news', [News::class, 'create']); // Add this line
+$routes->get('news/(:segment)', [News::class, 'show']);
+
+$routes->get('pages', [Pages::class, 'index']);
+$routes->get('(:segment)', [Pages::class, 'view']);
+```
+Petunjuk rute untuk 'news/new'ditempatkan sebelum petunjuk untuk untuk 'news/(:segment)'memastikan bahwa formulir untuk membuat item berita ditampilkan.
+
+Baris ini $routes->post()mendefinisikan router untuk permintaan POST. Ini hanya cocok dengan permintaan POST ke jalur URI /news , dan dipetakan ke create()metode kelas News.
+### Buat Formulir
+Untuk memasukkan data ke dalam database, Anda perlu membuat formulir dimana Anda dapat memasukkan informasi yang akan disimpan. Ini berarti Anda memerlukan formulir dengan dua bidang, satu untuk judul dan satu lagi untuk teks. Anda akan mendapatkan siput dari judul kami di model.
+
+Buat tampilan baru di app/Views/news/create.php :
+```bash
+<h2><?= esc($title) ?></h2>
+
+<?= session()->getFlashdata('error') ?>
+<?= validation_list_errors() ?>
+
+<form action="/news" method="post">
+    <?= csrf_field() ?>
+
+    <label for="title">Title</label>
+    <input type="input" name="title" value="<?= set_value('title') ?>">
+    <br>
+
+    <label for="body">Text</label>
+    <textarea name="body" cols="45" rows="4"><?= set_value('body') ?></textarea>
+    <br>
+
+    <input type="submit" name="submit" value="Create news item">
+</form>
+```
+Mungkin hanya ada empat hal di sini yang terlihat asing.
+
+Fungsi ini session()digunakan untuk mendapatkan objek Sesi, dan session()->getFlashdata('error')digunakan untuk menampilkan kesalahan terkait perlindungan CSRF kepada pengguna. Namun, secara default, jika pemeriksaan validasi CSRF gagal, pengecualian akan dilempar, sehingga belum berfungsi. Lihat Pengalihan pada Kegagalan untuk informasi lebih lanjut.
+
+Fungsi validation_list_errors()yang disediakan oleh Form Helper digunakan untuk melaporkan kesalahan terkait validasi form.
+
+Fungsi ini csrf_field()membuat masukan tersembunyi dengan token CSRF yang membantu melindungi dari beberapa serangan umum.
+
+Fungsi set_value()yang disediakan oleh Form Helper digunakan untuk menampilkan data masukan lama ketika terjadi kesalahan.
+
+### NewsController
+Kembali ke NewsController Anda.
+
+Tambahkan Berita::baru() untuk Menampilkan Formulir
+Pertama, buatlah metode untuk menampilkan form HTML yang telah Anda buat.
+```bash
+<?php
+
+namespace App\Controllers;
+
+use App\Models\NewsModel;
+use CodeIgniter\Exceptions\PageNotFoundException;
+
+class News extends BaseController
+{
+    // ...
+
+    public function new()
+    {
+        helper('form');
+
+        return view('templates/header', ['title' => 'Create a news item'])
+            . view('news/create')
+            . view('templates/footer');
+    }
+}
+```
+Kami memuat pembantu Formulir dengan fungsinya helper(). Sebagian besar fungsi pembantu memerlukan pembantu untuk dimuat sebelum digunakan.
+
+Kemudian mengembalikan tampilan formulir yang dibuat.
+
+### Tambahkan Berita::create() untuk Membuat Item Berita
+Selanjutnya, buat metode untuk membuat item berita dari data yang dikirimkan.
+
+Anda akan melakukan tiga hal di sini:
+
+memeriksa apakah data yang dikirimkan lolos aturan validasi.
+
+menyimpan item berita ke database.
+
+mengembalikan halaman sukses.
+```bash
+<?php
+
+namespace App\Controllers;
+
+use App\Models\NewsModel;
+use CodeIgniter\Exceptions\PageNotFoundException;
+
+class News extends BaseController
+{
+    // ...
+
+    public function create()
+    {
+        helper('form');
+
+        $data = $this->request->getPost(['title', 'body']);
+
+        // Checks whether the submitted data passed the validation rules.
+        if (! $this->validateData($data, [
+            'title' => 'required|max_length[255]|min_length[3]',
+            'body'  => 'required|max_length[5000]|min_length[10]',
+        ])) {
+            // The validation fails, so returns the form.
+            return $this->new();
+        }
+
+        // Gets the validated data.
+        $post = $this->validator->getValidated();
+
+        $model = model(NewsModel::class);
+
+        $model->save([
+            'title' => $post['title'],
+            'slug'  => url_title($post['title'], '-', true),
+            'body'  => $post['body'],
+        ]);
+
+        return view('templates/header', ['title' => 'Create a news item'])
+            . view('news/success')
+            . view('templates/footer');
+    }
+}
+```
+Kode di atas menambahkan banyak fungsi.
+### Ambil Datanya
+Pertama, kita menggunakan objek IncomingRequest$this->request , yang diatur di pengontrol oleh kerangka kerja.
+
+Kami mendapatkan item yang diperlukan dari data POST oleh pengguna dan mengaturnya dalam $datavariabel.
+### Validasi Data
+Selanjutnya, Anda akan menggunakan fungsi pembantu yang disediakan oleh Kontroler, validasiData() untuk memvalidasi data yang dikirimkan. Dalam hal ini, kolom judul dan isi wajib diisi dan panjangnya spesifik.
+
+CodeIgniter memiliki perpustakaan validasi yang kuat seperti yang ditunjukkan di atas. Anda dapat membaca lebih lanjut tentang perpustakaan Validasi .
+
+Jika validasi gagal, kami memanggil new()metode yang baru saja Anda buat dan mengembalikan formulir HTML.
+
+### Simpan Item Berita
+Jika validasi melewati semua aturan, kita mendapatkan data yang divalidasi dengan $this->validator->getValidated() dan mengaturnya dalam $postvariabel.
+
+Ini NewsModeldimuat dan dipanggil. Ini menangani penyampaian item berita ke dalam model. Metode save() menangani penyisipan atau pembaruan catatan secara otomatis, berdasarkan apakah metode tersebut menemukan kunci array yang cocok dengan kunci utama.
+
+Ini berisi fungsi baru url_title(). Fungsi ini - disediakan oleh pembantu URL - menghapus string yang Anda berikan, mengganti semua spasi dengan tanda hubung ( -) dan memastikan semuanya dalam karakter huruf kecil. Ini memberi Anda siput yang bagus, cocok untuk membuat URI.
+
+### Kembalikan Halaman Sukses
+Setelah ini, file tampilan dimuat dan dikembalikan untuk menampilkan pesan sukses. Buat tampilan di app/Views/news/success.php dan tulis pesan sukses.
+
+Ini bisa sesederhana:
+```bash
+<p>News item created successfully.</p>
+```
+### Pembaruan Model Berita
+Satu-satunya hal yang tersisa adalah memastikan bahwa model Anda sudah diatur untuk memungkinkan data disimpan dengan benar. Metode save()yang digunakan akan menentukan apakah informasi harus dimasukkan atau apakah baris sudah ada dan harus diperbarui, berdasarkan keberadaan kunci utama. Dalam hal ini, tidak ada idbidang yang diteruskan ke sana, sehingga baris baru akan dimasukkan ke dalam tabelnya, news.
+
+Namun secara default metode insert dan update pada Model tidak akan benar-benar menyimpan data apapun karena tidak mengetahui field apa yang aman untuk diupdate. Edit NewsModeluntuk memberikannya daftar bidang yang dapat diperbarui di $allowedFieldsproperti
+```bash
+<?php
+
+namespace App\Models;
+
+use CodeIgniter\Model;
+
+class NewsModel extends Model
+{
+    protected $table = 'news';
+
+    protected $allowedFields = ['title', 'slug', 'body'];
+}
+```
+Properti baru ini sekarang berisi kolom yang kami izinkan untuk disimpan ke database. Perhatikan bahwa kita mengabaikan id? Itu karena Anda hampir tidak perlu melakukan hal itu, karena ini adalah bidang yang bertambah secara otomatis dalam database. Ini membantu melindungi dari Kerentanan Penugasan Massal. Jika model Anda menangani stempel waktu Anda, Anda juga akan mengabaikannya.
+
+![newberita](https://github.com/Destenad/Tugas1_pbf/assets/134569575/7900a29e-aca1-4419-bc44-6c8d87ce9aa4)
+
+![Sukses](https://github.com/Destenad/Tugas1_pbf/assets/134569575/7a40d116-5eae-405f-81c7-a9390b3ec9c5)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # Struktur Aplikasi
 Untuk mendapatkan hasil maksimal dari CodeIgniter, Anda perlu memahami bagaimana struktur aplikasi, secara default, dan apa yang dapat Anda ubah untuk memenuhi kebutuhan aplikasi Anda.
