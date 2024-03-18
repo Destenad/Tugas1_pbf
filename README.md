@@ -183,6 +183,12 @@ Dan tambahkan setelah baris untuk mengimpor kelas.use CodeIgniter\Exceptions\Pag
 
 Sekarang, ketika halaman yang diminta memang ada, halaman tersebut dimuat, termasuk header dan footer, dan dikembalikan ke pengguna. Jika pengontrol mengembalikan string, string tersebut akan ditampilkan kepada pengguna.
 
+Sekarang kunjungi localhost:8080/home . Apakah itu dirutekan dengan benar ke view() metode di Pagespengontrol? Luar biasa!
+
+Anda akan melihat sesuatu seperti berikut:
+![/home](https://github.com/Destenad/Tugas1_pbf/assets/134569575/b529cade-e3a4-4560-89e5-6b598c67e7c0)
+
+
 # Membuat Database
 Pada tahap ini akan menyiapkan database yang akan di gunakan. Dalam tutorial ini kita akan mengeluarkan perintah database (mysql, MySQL Workbench, atau phpMyAdmin).
 
@@ -192,34 +198,36 @@ Menggunakan klien database Anda, sambungkan ke database Anda dan jalankan perint
 ```bash
 use ci4
 
-CREATE TABLE mahasiswa (
+CREATE TABLE news (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    nama VARCHAR(128) NOT NULL,
-    jurusan VARCHAR(128) NOT NULL,
-    alamat TEXT NOT NULL,
-    PRIMARY KEY (id)
+    title VARCHAR(128) NOT NULL,
+    slug VARCHAR(128) NOT NULL,
+    body TEXT NOT NULL,
+    PRIMARY KEY (id),
+    UNIQUE slug (slug)
 );
 ```
 Untuk mengecek apakah tabel tersebut berhasil di buat
 ```bash
 show tables;
 ```
-![cmdtable](https://github.com/Destenad/Tugas1_pbf/assets/134569575/1b9ede8c-971c-42fd-9937-dc12a5954bd5)
+![tabeldb](https://github.com/Destenad/Tugas1_pbf/assets/134569575/ca916f7a-25ee-45cd-9cd9-993ce9700306)
 
 Juga, tambahkan beberapa data. 
 
 Data bisa diisi seperti:
 ```bash
 INSERT INTO news VALUES
-(1,'Desten','TI','Purwokerto'),
-(2,'Aditya','TD','Cilacap'),
-(3,'Da','TIK','Purbalingga');
+(1,'Elvis sighted','elvis-sighted','Elvis was sighted at the Podunk internet cafe. It looked like he was writing a CodeIgniter app.'),
+(2,'Say it isn\'t so!','say-it-isnt-so','Scientists conclude that some programmers have a sense of humor.'),
+(3,'Caffeination, Yes!','caffeination-yes','World\'s largest coffee shop open onsite nested coffee shop for staff only.');
 ```
 Untuk memastikan bahwa data ada pada table tersebut gunakan syntax:
 ```bash
-select*from mahasiswa;
+select*from news;
 ```
-![Datatable](https://github.com/Destenad/Tugas1_pbf/assets/134569575/a8363beb-ae3c-48b6-b62c-885e3d761e91)
+![datatable](https://github.com/Destenad/Tugas1_pbf/assets/134569575/08cf72fd-1fc3-4fd5-81b5-91210a1f13ea)
+
 
 ### Hubungkan ke Basis Data Anda
 File konfigurasi lokal, .env , yang Anda buat saat menginstal CodeIgniter, harus memiliki pengaturan properti database yang tidak diberi komentar dan disetel dengan tepat untuk database yang ingin Anda gunakan. Pastikan Anda telah mengkonfigurasi database Anda dengan benar seperti yang dijelaskan dalam Konfigurasi Database :
@@ -236,7 +244,7 @@ database.default.hostname = localhost
 Daripada menulis operasi database langsung di pengontrol, kueri harus ditempatkan dalam model, sehingga dapat digunakan kembali dengan mudah nanti. Model adalah tempat Anda mengambil, menyisipkan, dan memperbarui informasi dalam database atau penyimpanan data lainnya. Mereka menyediakan akses ke data Anda. Anda dapat membaca lebih lanjut tentang hal ini di Menggunakan Model CodeIgniter .
 
 ### Buat Model Berita
-Buka direktori app/Models dan buat file baru bernama MahasiswaModel.php dan tambahkan kode berikut.
+Buka direktori app/Models dan buat file baru bernama NewsModel.php dan tambahkan kode berikut.
 ```bash
 <?php
 
@@ -246,7 +254,7 @@ use CodeIgniter\Model;
 
 class NewsModel extends Model
 {
-    protected $table = 'mahasiswa';
+    protected $table = 'news';
 }
 ```
 Kode ini terlihat mirip dengan kode pengontrol yang digunakan sebelumnya. Ini menciptakan model baru dengan memperluas CodeIgniter\Modeldan memuat perpustakaan database. Ini akan membuat kelas database tersedia melalui $this->dbobjek.
@@ -254,13 +262,13 @@ Kode ini terlihat mirip dengan kode pengontrol yang digunakan sebelumnya. Ini me
 ### Tambahkan Metode NewsModel::getNews()
 Sekarang database dan model telah disiapkan, Anda memerlukan metode untuk mendapatkan semua postingan dari database kami. Untuk melakukan hal ini, lapisan abstraksi database yang disertakan dengan CodeIgniter - Query Builder - digunakan dalam CodeIgniter\Model. Hal ini memungkinkan untuk menulis 'kueri' Anda satu kali dan membuatnya berfungsi pada semua sistem basis data yang didukung . Kelas Model juga memungkinkan Anda bekerja dengan mudah dengan Pembuat Kueri dan menyediakan beberapa alat tambahan untuk mempermudah pengerjaan data. Tambahkan kode berikut ke model Anda.
 ```bash
-  public function getMahasiswa($id = false)
+ public function getNews($slug = false)
     {
-        if ($id === false) {
+        if ($slug === false) {
             return $this->findAll();
         }
 
-        return $this->where(['id' => $id])->first();
+        return $this->where(['slug' => $slug])->first();
     }
 ```
 Dengan kode ini, Anda dapat melakukan dua kueri berbeda. Anda bisa mendapatkan semua catatan berita, atau mendapatkan item berita melalui siputnya. Anda mungkin memperhatikan bahwa $slugvariabel tidak di-escape sebelum menjalankan kueri; Pembuat Kueri melakukan ini untuk Anda.
@@ -268,7 +276,8 @@ Dengan kode ini, Anda dapat melakukan dua kueri berbeda. Anda bisa mendapatkan s
 Dua metode yang digunakan di sini, findAll()dan first(), disediakan oleh CodeIgniter\Modelkelas. Mereka sudah mengetahui tabel yang akan digunakan berdasarkan $table properti yang kita atur di NewsModelkelas tadi. Mereka adalah metode pembantu yang menggunakan Pembuat Kueri untuk menjalankan perintahnya pada tabel saat ini, dan mengembalikan serangkaian hasil dalam format pilihan Anda. Dalam contoh ini, findAll()mengembalikan array dari array.
 
 ### Tampilkan Berita
-Sekarang setelah kueri ditulis, model harus dikaitkan dengan tampilan yang akan menampilkan item berita kepada pengguna. Ini bisa dilakukan di Pagespengontrol yang kami buat sebelumnya, tetapi demi kejelasan, Mahasiswa Controller baru telah ditentukan.
+Sekarang setelah kueri ditulis, model harus dikaitkan dengan tampilan yang akan menampilkan item berita kepada pengguna. Ini bisa dilakukan di Pagespengontrol yang kami buat sebelumnya, tetapi demi kejelasan, Newspengontrol baru telah ditentukan.
+
 ### Menambahkan Aturan Perutean
 Ubah file app/Config/Routes.php Anda , sehingga terlihat seperti berikut:
 ```bash
@@ -276,24 +285,25 @@ Ubah file app/Config/Routes.php Anda , sehingga terlihat seperti berikut:
 
 // ...
 
-use App\Controllers\Mahasiswa; // Add this line
+use App\Controllers\News; // Add this line
 use App\Controllers\Pages;
 
-$routes->get('mahasiswa', [News::class, 'index']);           // Add this line
-$routes->get('mahasiswa/(:segment)', [News::class, 'show']); // Add this line
+$routes->get('news', [News::class, 'index']);           // Add this line##
+$routes->get('news/(:segment)', [News::class, 'show']); // Add this line
 
 $routes->get('pages', [Pages::class, 'index']);
 $routes->get('(:segment)', [Pages::class, 'view']);
 ```
-Hal ini memastikan permintaan mencapai Newspengontrol alih-alih langsung ke Pagespengontrol. Baris kedua $routes->get()merutekan URl dengan id ke show()metode di MahasiswaController.
-### Buat Mahasiswa Controller
-Buat pengontrol baru di app/Controllers/Mahasiswa.php .
+
+Hal ini memastikan permintaan mencapai NewsController alih-alih langsung ke PagesController. Baris kedua $routes->get()merutekan URL dengan slug ke show()metode di NewsController.
+### Buat NewsController
+Buat pengontrol baru di app/Controllers/News.php .
 ```bash
 <?php
 
 namespace App\Controllers;
 
-use App\Models\MahasiswaModel;
+use App\Models\NewsModel;
 
 class News extends BaseController
 {
@@ -301,14 +311,14 @@ class News extends BaseController
     {
         $model = model(NewsModel::class);
 
-        $data['mahasiswa'] = $model->getMahasiswa();
+        $data['news'] = $model->getNews();
     }
 
-    public function show($id = null)
+    public function show($slug = null)
     {
         $model = model(NewsModel::class);
 
-        $data['mahasiswa'] = $model->getMahasiswa($id);
+        $data['news'] = $model->getNews($slug);
     }
 }
 ```
@@ -316,9 +326,10 @@ Melihat kodenya, Anda mungkin melihat beberapa kesamaan dengan file yang kita bu
 
 Berikutnya, ada dua metode, satu untuk melihat semua item berita, dan satu lagi untuk item berita tertentu.
 
-Selanjutnya, model()fungsi tersebut digunakan untuk membuat NewsModelinstance. Ini adalah fungsi pembantu. Anda dapat membaca lebih lanjut tentangnya di Fungsi dan Konstanta Global . Anda juga bisa menulis , jika Anda tidak menggunakannya.$model = new MahasiswaModel();
+Selanjutnya, model()fungsi tersebut digunakan untuk membuat NewsModelinstance. Ini adalah fungsi pembantu. Anda dapat membaca lebih lanjut tentangnya di Fungsi dan Konstanta Global . Anda juga bisa menulis , jika Anda tidak menggunakannya.$model = new NewsModel();
 
-Anda dapat melihat bahwa $id diteruskan ke metode model di metode kedua. Model menggunakan id ini untuk mengidentifikasi data yang akan dikembalikan.
+Anda dapat melihat bahwa $slugvariabel diteruskan ke metode model di metode kedua. Model menggunakan slug ini untuk mengidentifikasi item berita yang akan dikembalikan.
+
 ### Berita Lengkap::index() Metode
 Sekarang data diambil oleh pengontrol melalui model kami, tetapi belum ada yang ditampilkan. Hal berikutnya yang harus dilakukan adalah meneruskan data ini ke tampilan. Ubah index()metodenya menjadi seperti ini:
 ```bash
@@ -347,43 +358,7 @@ class News extends BaseController
     // ...
 }
 ```
-![mahasiswacontroller](https://github.com/Destenad/Tugas1_pbf/assets/134569575/baf2508c-cbbd-4d2b-9a9d-ec427b176b4f)
-
 Kode di atas mengambil semua catatan berita dari model dan menugaskannya ke variabel. Nilai judul juga ditetapkan ke $data['title'] elemen dan semua data diteruskan ke tampilan. Anda sekarang perlu membuat tampilan untuk merender item berita.
-
-### Buat File Tampilan Mahasiswa/indeks
-Buat app/Views/mahasiswa/index.php dan tambahkan potongan kode berikutnya.
-```bash
-<h2><?= esc($title) ?></h2>
-
-<?php if (! empty($mahasiswa) && is_array($mahasiswa)): ?>
-
-    <?php foreach ($mahasiswa as $mahasiswa_item): ?>
-
-        <h3><?= esc($mahasiswa_item['id']) ?></h3>
-
-        <div class="main">
-            <?= esc($mahasiswa_item['nama']) ?>
-        </div>
-        <p><a href="/news/<?= esc($mahasiswa_item['alamat'], 'url') ?>">Lihat Data</a></p>
-
-    <?php endforeach ?>
-
-<?php else: ?>
-
-    <p>Unable to find any news for you.</p>
-
-<?php endif ?>
-```
-### Lihat Lihat File
-Satu-satunya hal yang perlu dilakukan adalah membuat tampilan terkait di app/Views/mahasiswa/view.php . Letakkan kode berikut di file ini.
-```bash
-<h2><?= esc($mahasiswa['nama']) ?></h2>
-<p><?= esc($mahasiswa['alamat']) ?></p>
-```
-Arahkan browser Anda ke halaman “berita”, yaitu localhost:8080/news , Anda akan melihat daftar item berita, yang masing-masing memiliki link untuk menampilkan satu artikel saja.
-
-
 
 
 
