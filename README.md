@@ -26,7 +26,7 @@ Repositori starter aplikasi CodeIgniter 4 menyimpan aplikasi kerangka, dengan ke
 
 Teknik instalasi ini cocok untuk pengembang yang ingin memulai proyek baru berbasis CodeIgniter4.
 
-### Instalasi
+# Instalasi
 Di folder di atas root proyek Anda:
 
 ```bash
