@@ -736,9 +736,8 @@ Tanggung jawab lain dari pengontrol adalah menangani segala sesuatu yang berkait
 
 Pengontrol biasanya disimpan di app/Controllers , meskipun mereka dapat menggunakan namespace untuk dikelompokkan sesuai kebutuhan Anda.
 
-# Migrasi Database
- 9.Migration
-sebelum memulai pada file env ubah DATABASE supaya tersambung ke database masing masing lalu ubah nama menjadi .env
+# 9. Migrasi Database
+Sebelum memulai pada file env ubah DATABASE supaya tersambung ke database masing masing lalu ubah nama menjadi .env
 ```bash
  database.default.hostname = localhost
  database.default.database = ci4_berita
