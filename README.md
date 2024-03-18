@@ -36,6 +36,13 @@ Perintah di atas akan membuat folder ci4.
 
 Jika Anda menghilangkan argumen “ci4”, perintah akan membuat folder “appstarter”, yang dapat diganti namanya sesuai kebutuhan.
 
+## Mengatur Mode Pengembangan
+Secara default, CodeIgniter dijalankan dalam mode produksi. Ini adalah fitur keamanan untuk menjaga situs Anda sedikit lebih aman jika pengaturannya kacau saat ditayangkan. Jadi pertama-tama mari kita perbaiki itu. Salin atau ganti nama file env menjadi .env . Bukalah.
+
+File ini berisi pengaturan khusus server. Ini berarti Anda tidak perlu memasukkan informasi sensitif apa pun ke sistem kontrol versi Anda. Ini mencakup beberapa yang paling umum yang sudah ingin Anda masukkan, meskipun semuanya sudah diberi komentar. Jadi batalkan komentar pada baris dengan CI_ENVIRONMENTdi atasnya, dan ubah production menjadi development:
+``` bash
+CI_ENVIRONMENT = development
+```
 ## Konfigurasi Awal
 Buka file app/Config/App.php dengan editor teks.
 
@@ -49,6 +56,48 @@ alamat tersebut dapat di dapatkan dengan server pengembangan lokal, memanfaatkan
 php spark serve
 ```
 Ini akan meluncurkan server dan sekarang Anda dapat melihat aplikasi Anda di browser Anda di http://localhost:8080 .
+
+## Menetapkan Aturan Perutean
+Perutean mengaitkan URI dengan metode pengontrol. Pengontrol hanyalah sebuah kelas yang membantu mendelegasikan pekerjaan. Kami akan membuat pengontrol nanti.
+
+Mari kita siapkan aturan perutean. Buka file rute yang terletak di app/Config/Routes.php .
+
+Satu-satunya petunjuk rute untuk memulai adalah:
+
+<?php
+
+use CodeIgniter\Router\RouteCollection;
+``` bash
+/**
+ * @var RouteCollection $routes
+ */
+$routes->get('/', 'Home::index');
+```
+
+Arahan ini mengatakan bahwa setiap permintaan masuk tanpa konten apa pun yang ditentukan harus ditangani oleh index()metode di dalam Homepengontrol.
+
+Tambahkan baris berikut, setelah arahan rute untuk '/'.
+
+```bash
+use App\Controllers\Pages;
+
+$routes->get('pages', [Pages::class, 'index']);
+$routes->get('(:segment)', [Pages::class, 'view']);
+```
+
+CodeIgniter membaca aturan routingnya dari atas ke bawah dan merutekan permintaan ke aturan pertama yang cocok. Setiap aturan adalah ekspresi reguler (sisi kiri) yang dipetakan ke pengontrol dan nama metode (sisi kanan). Ketika sebuah permintaan masuk, CodeIgniter mencari kecocokan pertama, dan memanggil pengontrol dan metode yang sesuai, mungkin dengan argumen.
+
+Informasi selengkapnya tentang perutean dapat ditemukan di Perutean URI .
+
+Di sini, aturan kedua dalam $routesobjek mencocokkan permintaan GET dengan jalur URI /pages , dan dipetakan ke index()metode kelas Pages.
+
+Aturan ketiga dalam $routesobjek mencocokkan permintaan GET ke segmen URI menggunakan placeholder (:segment), dan meneruskan parameter ke view()metode kelas Pages.
+
+## Ayo Buat Pengendali Pertama kita
+Hal berikutnya yang akan Anda lakukan adalah menyiapkan pengontrol untuk menangani halaman statis. Pengontrol hanyalah sebuah kelas yang membantu mendelegasikan pekerjaan. Ini adalah perekat aplikasi web Anda.
+
+Buat Pengontrol Halaman
+Buat file di app/Controllers/Pages.php dengan kode berikut.
 
 ## Important Change with index.php
 
