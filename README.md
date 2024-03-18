@@ -432,6 +432,93 @@ Satu-satunya hal yang perlu dilakukan adalah membuat tampilan terkait di app/Vie
 Arahkan browser Anda ke halaman “news”, yaitu localhost:8080/news , Anda akan melihat daftar item berita, yang masing-masing memiliki link untuk menampilkan satu artikel saja.
 ![news](https://github.com/Destenad/Tugas1_pbf/assets/134569575/cc3e2e5b-f185-4cf7-b813-233b63bc5283)
 
+# Struktur Aplikasi
+Untuk mendapatkan hasil maksimal dari CodeIgniter, Anda perlu memahami bagaimana struktur aplikasi, secara default, dan apa yang dapat Anda ubah untuk memenuhi kebutuhan aplikasi Anda.
+
+
+### Direktori Default
+Instalasi baru memiliki lima direktori: app/, public/, writable/, tests/dan vendor/atau system/. Masing-masing direktori ini memiliki peran yang sangat spesifik untuk dimainkan.
+### Aplikasi
+Direktori appadalah tempat semua kode aplikasi Anda berada. Ini hadir dengan struktur direktori default yang berfungsi dengan baik untuk banyak aplikasi. Folder berikut membentuk konten dasar:
+```bash
+app/
+    Config/         Stores the configuration files
+    Controllers/    Controllers determine the program flow
+    Database/       Stores the database migrations and seeds files
+    Filters/        Stores filter classes that can run before and after controller
+    Helpers/        Helpers store collections of standalone functions
+    Language/       Multiple language support reads the language strings from here
+    Libraries/      Useful classes that don't fit in another category
+    Models/         Models work with the database to represent the business entities
+    ThirdParty/     ThirdParty libraries that can be used in application
+    Views/          Views make up the HTML that is displayed to the client
+```
+Karena appdirektori sudah diberi namespace, Anda bebas memodifikasi struktur direktori ini agar sesuai dengan kebutuhan aplikasi Anda. Misalnya, Anda mungkin memutuskan untuk mulai menggunakan pola Repositori dan Model Entitas untuk bekerja dengan data Anda. Dalam hal ini, Anda dapat mengganti nama Modelsdirektori menjadi Repositories, dan menambahkan direktori baru Entities.
+Semua file dalam direktori ini berada di bawah Appnamespace, meskipun Anda bebas mengubahnya di app/Config/Constants.php .
+
+### Sistem
+Direktori ini menyimpan file-file yang membentuk kerangka itu sendiri. Meskipun Anda memiliki banyak fleksibilitas dalam cara menggunakan direktori aplikasi, file dalam direktori sistem tidak boleh diubah. Sebaliknya, Anda harus memperluas kelas, atau membuat kelas baru, untuk menyediakan fungsionalitas yang diinginkan.
+
+Semua file dalam direktori ini berada di bawah CodeIgniternamespace. 
+### publik
+Folder publik menampung bagian aplikasi web Anda yang dapat diakses browser, mencegah akses langsung ke kode sumber Anda. Ini berisi file .htaccess utama , index.php , dan aset aplikasi apa pun yang Anda tambahkan, seperti CSS, javascript, atau gambar.
+
+Folder ini dimaksudkan sebagai “root web” situs Anda, dan server web Anda akan dikonfigurasi untuk mengarah ke folder tersebut.
+### Dapat ditulis
+Direktori ini menampung semua direktori yang mungkin perlu ditulisi selama masa pakai aplikasi. Ini termasuk direktori untuk menyimpan file cache, log, dan unggahan apa pun yang mungkin dikirim pengguna. Anda harus menambahkan direktori lain tempat aplikasi Anda perlu menulis di sini. Hal ini memungkinkan Anda untuk menjaga direktori utama lainnya tidak dapat ditulisi sebagai langkah keamanan tambahan.
+### Tes
+Direktori ini disiapkan untuk menyimpan file pengujian Anda. Direktori ini _supportmenampung berbagai kelas tiruan dan utilitas lain yang dapat Anda gunakan saat menulis pengujian Anda. Direktori ini tidak perlu ditransfer ke server produksi Anda.
+### Memodifikasi Lokasi Direktori
+Jika Anda telah memindahkan salah satu direktori utama, Anda dapat mengubah pengaturan konfigurasi di dalam app/Config/Paths.php .
+
+# Model, Tampilan, dan Pengontrol
+### Apa itu MVC?
+Setiap kali Anda membuat aplikasi, Anda harus menemukan cara untuk mengatur kode agar mudah menemukan file yang tepat dan memudahkan pemeliharaan. Seperti kebanyakan kerangka web, CodeIgniter menggunakan pola Model, View, Controller (MVC) untuk mengatur file. Hal ini menjaga data, presentasi, dan aliran melalui aplikasi sebagai bagian yang terpisah.
+
+Perlu dicatat bahwa ada banyak pandangan mengenai peran masing-masing elemen, namun dokumen ini menjelaskan pendapat kami mengenai hal tersebut. Jika Anda memikirkannya secara berbeda, Anda bebas mengubah cara Anda menggunakan setiap bagian sesuai kebutuhan.
+
+Model mengelola data aplikasi dan membantu menegakkan aturan bisnis khusus yang mungkin diperlukan aplikasi.
+
+Tampilan adalah file sederhana, dengan sedikit atau tanpa logika, yang menampilkan informasi kepada pengguna.
+
+Pengontrol bertindak sebagai kode perekat, menyusun data bolak-balik antara tampilan (atau pengguna yang melihatnya) dan penyimpanan data.
+
+Pada dasarnya, pengontrol dan model hanyalah kelas yang memiliki tugas tertentu. Tentu saja mereka bukan satu-satunya tipe kelas yang dapat Anda gunakan, tetapi mereka membentuk inti bagaimana kerangka kerja ini dirancang untuk digunakan. Mereka bahkan telah menetapkan direktori di direktori aplikasi untuk penyimpanannya, meskipun Anda bebas menyimpannya di mana pun Anda inginkan, asalkan diberi spasi nama yang benar. Kami akan membahasnya lebih detail di bawah ini.
+
+Mari kita lihat lebih dekat masing-masing dari ketiga komponen utama ini.
+
+### Komponen
+Tampilan
+Tampilan adalah file paling sederhana dan biasanya berbentuk HTML dengan jumlah PHP yang sangat kecil. PHP harusnya sangat sederhana, biasanya hanya menampilkan isi variabel, atau mengulang beberapa item dan menampilkan informasinya dalam sebuah tabel.
+
+Tampilan mendapatkan data untuk ditampilkan dari pengontrol, yang meneruskannya ke tampilan sebagai variabel yang dapat ditampilkan dengan echopanggilan sederhana. Anda juga dapat menampilkan tampilan lain dalam suatu tampilan, membuatnya cukup mudah untuk menampilkan header atau footer umum di setiap halaman.
+
+Tampilan umumnya disimpan di app/Views , tetapi dapat dengan cepat menjadi berat jika tidak diatur dengan cara tertentu. CodeIgniter tidak menerapkan jenis organisasi apa pun, namun aturan praktis yang baik adalah membuat direktori baru di direktori Views untuk setiap pengontrol. Kemudian, beri nama tampilan berdasarkan nama metode. Hal ini membuat mereka sangat mudah ditemukan nantinya. Misalnya, profil pengguna mungkin ditampilkan dalam pengontrol bernama User, dan metode bernama profile. Anda dapat menyimpan file tampilan untuk metode ini di app/Views/user/profile.php .
+
+Jenis organisasi seperti itu berfungsi dengan baik sebagai kebiasaan dasar yang harus dilakukan. Terkadang Anda mungkin perlu mengaturnya secara berbeda. Itu bukan masalah. Selama CodeIgniter dapat menemukan file tersebut, ia dapat menampilkannya.
+
+### Model
+Tugas model adalah memelihara satu tipe data untuk aplikasi. Ini mungkin pengguna, postingan blog, transaksi, dll. Dalam hal ini, tugas model memiliki dua bagian: menerapkan aturan bisnis pada data saat diambil dari, atau dimasukkan ke dalam database; dan menangani penyimpanan dan pengambilan data sebenarnya dari database.
+
+Bagi banyak pengembang, kebingungan muncul ketika menentukan aturan bisnis apa yang diterapkan. Artinya, segala batasan atau persyaratan pada data ditangani oleh model. Ini mungkin termasuk normalisasi data mentah sebelum disimpan untuk memenuhi standar perusahaan, atau memformat kolom dengan cara tertentu sebelum menyerahkannya ke pengontrol. Dengan mempertahankan persyaratan bisnis ini dalam model, Anda tidak akan mengulangi kode di beberapa pengontrol dan secara tidak sengaja melewatkan pembaruan suatu area.
+
+Model biasanya disimpan di app/Models , meskipun model tersebut dapat menggunakan namespace untuk dikelompokkan sesuai kebutuhan Anda.
+
+### Controller
+Pengendali memiliki beberapa peran berbeda untuk dimainkan. Yang paling jelas adalah mereka menerima masukan dari pengguna dan kemudian menentukan apa yang harus dilakukan dengannya. Hal ini sering kali melibatkan meneruskan data ke model untuk menyimpannya, atau meminta data dari model yang kemudian diteruskan ke tampilan untuk ditampilkan. Hal ini juga mencakup memuat kelas utilitas lainnya, jika diperlukan, untuk menangani tugas khusus yang berada di luar lingkup model.
+
+Tanggung jawab lain dari pengontrol adalah menangani segala sesuatu yang berkaitan dengan permintaan HTTP - pengalihan, otentikasi, keamanan web, pengkodean, dll. Singkatnya, pengontrol adalah tempat Anda memastikan bahwa orang diizinkan berada di sana, dan mereka mendapatkan data mereka butuhkan dalam format yang dapat mereka gunakan.
+
+Pengontrol biasanya disimpan di app/Controllers , meskipun mereka dapat menggunakan namespace untuk dikelompokkan sesuai kebutuhan Anda.
+
+
+
+
+
+
+
+
+
 
 
 
