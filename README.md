@@ -657,25 +657,6 @@ Properti baru ini sekarang berisi kolom yang kami izinkan untuk disimpan ke data
 
 ![Sukses](https://github.com/Destenad/Tugas1_pbf/assets/134569575/7a40d116-5eae-405f-81c7-a9390b3ec9c5)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # 7. Struktur Aplikasi
 Untuk mendapatkan hasil maksimal dari CodeIgniter, Anda perlu memahami bagaimana struktur aplikasi, secara default, dan apa yang dapat Anda ubah untuk memenuhi kebutuhan aplikasi Anda.
 
@@ -758,29 +739,33 @@ Pengontrol biasanya disimpan di app/Controllers , meskipun mereka dapat mengguna
 # Migrasi Database
  9.Migration
 sebelum memulai pada file env ubah DATABASE supaya tersambung ke database masing masing lalu ubah nama menjadi .env
-```shell
+```bash
  database.default.hostname = localhost
- database.default.database = cinews
+ database.default.database = ci4_berita
  database.default.username = root
  database.default.password = 
  database.default.DBDriver = MySQLi
 ```
+
+![migrasi1](https://github.com/Destenad/Tugas1_pbf/assets/134569575/3e791085-c6e0-48ed-8d54-2f1a2c3c5791)
+
 pada terminal ketik
-```shell
+```bash
 php spark db:create ci_news
 ```
 untuk membuat database baru dengan nama ci_news
 setelah itu buat migration dengan nama news
-```shell
+```bash
 php spark migrate:create news
 ```
 maka pada app/database/migration akan terbuat file tgl_news.php
-![image](https://github.com/Einkelberg/CI4-PBF-Mas-Dzuky/assets/127199885/9f42829a-6526-41d7-9a0a-410ce9d1b133)
+
+![migrasi2](https://github.com/Destenad/Tugas1_pbf/assets/134569575/430462f2-c1e7-48fc-be2a-2badb27f9246)
 
 pada file terdapat dua fungsi up() yang akan dijalankan ketika migrasi dan down() yang akan dijalankan ketika rollback dimana fungsi up akan menjalankan instruksi seperti membuat tabel news sedangkan fungsi down dapat digunakan untuk membatalkan apa yang dilakukan seperti drop table.
 
 sekarang isi file news untuk membuat table news dengan cara addfield pada fungsi up dan isikan dengan kolom yang diinginkan
-```shell
+```bash
 <?php
 namespace App\Database\Migrations;
 use CodeIgniter\Database\Migration;
@@ -837,7 +822,8 @@ untuk melakukan migrasi dan mengeksukusi fungsi up tersebut ketik ini pada termi
 php spark migrate
 ```
 maka table news akan terbentuk
-![image](https://github.com/Einkelberg/CI4-PBF-Mas-Dzuky/assets/127199885/3419a5d6-7b93-4ae9-b27b-25b87eff41df)
+![migrasi3](https://github.com/Destenad/Tugas1_pbf/assets/134569575/477b5a9d-fdef-46ff-a497-7b431ff3229b)
+
 
 
 # 10.Routing dan Controller
