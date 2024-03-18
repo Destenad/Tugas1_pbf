@@ -21,12 +21,12 @@ Panduan Pengguna adalah dokumentasi utama untuk CodeIgniter 4.
 
 Panduan Pengguna yang sedang dalam proses dapat ditemukan di sini . Seperti halnya kerangka kerja lainnya, kerangka ini masih dalam proses, dan akan mengalami perubahan seiring berjalannya waktu pada struktur, penjelasan, dan lain-lain.
 
-# Selamat datang di CodeIgniter4
+# 1. Selamat datang di CodeIgniter4
 CodeIgniter adalah Kerangka Pengembangan Aplikasi - sebuah toolkit - untuk orang-orang yang membangun situs web menggunakan PHP. Tujuannya adalah untuk memungkinkan Anda mengembangkan proyek jauh lebih cepat daripada jika Anda menulis kode dari awal, dengan menyediakan kumpulan perpustakaan yang kaya untuk tugas-tugas umum, serta antarmuka sederhana dan struktur logis untuk mengakses perpustakaan ini. CodeIgniter memungkinkan Anda fokus secara kreatif pada proyek Anda dengan meminimalkan jumlah kode yang dibutuhkan untuk tugas tertentu.
 
 Jika memungkinkan, CodeIgniter dibuat sefleksibel mungkin, memungkinkan Anda bekerja sesuai keinginan Anda, tidak dipaksa bekerja dengan cara tertentu. Kerangka kerja dapat memiliki bagian-bagian inti yang mudah diperluas atau diganti seluruhnya untuk membuat sistem bekerja sesuai kebutuhan Anda. Singkatnya, CodeIgniter adalah kerangka kerja lunak yang mencoba menyediakan alat yang Anda butuhkan tanpa mengganggu.
 
-# Instalasi
+# 2. Instalasi
 Di folder di atas root proyek Anda:
 
 ```bash
@@ -43,9 +43,20 @@ File ini berisi pengaturan khusus server. Ini berarti Anda tidak perlu memasukka
 ``` bash
 CI_ENVIRONMENT = development
 ```
-### Konfigurasi Awal
+# 3. Konfigurasi Awal
 Buka file app/Config/App.php dengan editor teks.
-
+sebelum coding sebaiknya pada file env ubah ENVIRONMENT ke develpment untuk mempermudah debugging dan testing dan juga ubah  DATABASE supaya tersambung ke database masing masing
+lalu ubah nama menjadi .env
+```shell
+ CI_ENVIRONMENT = development
+```
+```shell
+ database.default.hostname = localhost
+ database.default.database = ci4
+ database.default.username = root
+ database.default.password = 
+ database.default.DBDriver = MySQLi
+```
 ** $baseURL
 Tetapkan URL dasar Anda menjadi $baseURL. Jika Anda memerlukan lebih banyak fleksibilitas, baseURL dapat diatur dalam file .env sebagai . Selalu gunakan garis miring pada URL dasar Anda!
 
@@ -61,7 +72,7 @@ php spark serve
 ```
 
 Ini akan meluncurkan server dan sekarang Anda dapat melihat aplikasi Anda di browser Anda di http://localhost:8080 .
-# Halaman Statis
+# 4. Halaman Statis
 ### Menetapkan Aturan Perutean
 Perutean mengaitkan URI dengan metode pengontrol. Pengontrol hanyalah sebuah kelas yang membantu mendelegasikan pekerjaan. Kami akan membuat pengontrol nanti.
 
@@ -188,7 +199,7 @@ Sekarang kunjungi localhost:8080/home . Apakah itu dirutekan dengan benar ke vie
 Anda akan melihat sesuatu seperti berikut:
 ![/home](https://github.com/Destenad/Tugas1_pbf/assets/134569575/b529cade-e3a4-4560-89e5-6b598c67e7c0)
 
-# Bagian Berita
+# 5. Bagian Berita
 ### Membuat Database
 Pada tahap ini akan menyiapkan database yang akan di gunakan. Dalam tutorial ini kita akan mengeluarkan perintah database (mysql, MySQL Workbench, atau phpMyAdmin).
 
@@ -432,7 +443,7 @@ Satu-satunya hal yang perlu dilakukan adalah membuat tampilan terkait di app/Vie
 Arahkan browser Anda ke halaman “news”, yaitu localhost:8080/news , Anda akan melihat daftar item berita, yang masing-masing memiliki link untuk menampilkan satu artikel saja.
 ![news](https://github.com/Destenad/Tugas1_pbf/assets/134569575/cc3e2e5b-f185-4cf7-b813-233b63bc5283)
 
-# Buat Item Berita
+# 6. Buat Item Berita
 Anda sekarang tahu bagaimana Anda bisa membaca data dari database menggunakan CodeIgniter, tapi Anda belum menulis informasi apa pun ke database. Di bagian ini, Anda akan memperluas pengontrol berita dan model yang dibuat sebelumnya untuk menyertakan fungsi ini.
 ### Aktifkan Filter CSRF
 Sebelum membuat formulir, aktifkan perlindungan CSRF.
@@ -665,7 +676,7 @@ Properti baru ini sekarang berisi kolom yang kami izinkan untuk disimpan ke data
 
 
 
-# Struktur Aplikasi
+# 7. Struktur Aplikasi
 Untuk mendapatkan hasil maksimal dari CodeIgniter, Anda perlu memahami bagaimana struktur aplikasi, secara default, dan apa yang dapat Anda ubah untuk memenuhi kebutuhan aplikasi Anda.
 
 
@@ -704,7 +715,7 @@ Direktori ini disiapkan untuk menyimpan file pengujian Anda. Direktori ini _supp
 ### Memodifikasi Lokasi Direktori
 Jika Anda telah memindahkan salah satu direktori utama, Anda dapat mengubah pengaturan konfigurasi di dalam app/Config/Paths.php .
 
-# Model, Tampilan, dan Pengontrol
+# 8. Model, Tampilan, dan Pengontrol
 ### Apa itu MVC?
 Setiap kali Anda membuat aplikasi, Anda harus menemukan cara untuk mengatur kode agar mudah menemukan file yang tepat dan memudahkan pemeliharaan. Seperti kebanyakan kerangka web, CodeIgniter menggunakan pola Model, View, Controller (MVC) untuk mengatur file. Hal ini menjaga data, presentasi, dan aliran melalui aplikasi sebagai bagian yang terpisah.
 
@@ -744,30 +755,112 @@ Tanggung jawab lain dari pengontrol adalah menangani segala sesuatu yang berkait
 
 Pengontrol biasanya disimpan di app/Controllers , meskipun mereka dapat menggunakan namespace untuk dikelompokkan sesuai kebutuhan Anda.
 
+# Migrasi Database
+ 9.Migration
+sebelum memulai pada file env ubah DATABASE supaya tersambung ke database masing masing lalu ubah nama menjadi .env
+```shell
+ database.default.hostname = localhost
+ database.default.database = cinews
+ database.default.username = root
+ database.default.password = 
+ database.default.DBDriver = MySQLi
+```
+pada terminal ketik
+```shell
+php spark db:create ci_news
+```
+untuk membuat database baru dengan nama ci_news
+setelah itu buat migration dengan nama news
+```shell
+php spark migrate:create news
+```
+maka pada app/database/migration akan terbuat file tgl_news.php
+![image](https://github.com/Einkelberg/CI4-PBF-Mas-Dzuky/assets/127199885/9f42829a-6526-41d7-9a0a-410ce9d1b133)
+
+pada file terdapat dua fungsi up() yang akan dijalankan ketika migrasi dan down() yang akan dijalankan ketika rollback dimana fungsi up akan menjalankan instruksi seperti membuat tabel news sedangkan fungsi down dapat digunakan untuk membatalkan apa yang dilakukan seperti drop table.
+
+sekarang isi file news untuk membuat table news dengan cara addfield pada fungsi up dan isikan dengan kolom yang diinginkan
+```shell
+<?php
+namespace App\Database\Migrations;
+use CodeIgniter\Database\Migration;
+
+class News extends Migration
+{
+	public function up()
+	{
+		// Membuat kolom untuk tabel news
+		$this->forge->addField([
+			'id'          => [
+				'type'           => 'INT',
+				'constraint'     => 5,
+				'unsigned'       => true,
+				'auto_increment' => true
+			],
+			'title'       => [
+				'type'           => 'VARCHAR',
+				'constraint'     => '255'
+			],
+			'author'      => [
+				'type'           => 'VARCHAR',
+				'constraint'     => 100,
+				'default'        => 'John Doe',
+			],
+			'content' => [
+				'type'           => 'TEXT',
+				'null'           => true,
+			],
+			'status'      => [
+				'type'           => 'ENUM',
+				'constraint'     => ['published', 'draft'],
+				'default'        => 'draft',
+			],
+		]);
+
+		// Membuat primary key
+		$this->forge->addKey('id', TRUE);
+
+		// Membuat tabel news
+		$this->forge->createTable('news', TRUE);
+	}
+
+	public function down()
+	{
+		// menghapus tabel news
+		$this->forge->dropTable('news');
+	}
+}
+```
+
+untuk melakukan migrasi dan mengeksukusi fungsi up tersebut ketik ini pada terminal
+```shell
+php spark migrate
+```
+maka table news akan terbentuk
+![image](https://github.com/Einkelberg/CI4-PBF-Mas-Dzuky/assets/127199885/3419a5d6-7b93-4ae9-b27b-25b87eff41df)
 
 
+# 10.Routing dan Controller
+Pada CI4 untuk mengakses views dapat dilakukan dengan routing 	
+pada app/Config/routes.php
+dapat ditambahkan 
+```shell
+$routes->get('admin', 'admin::index');
+```
+untuk mengakses fungsi index dalam controller admin
+dimana controller admin memilki tampilan sebagai berikut
+```shell
+<?php
 
+namespace App\Controllers;
 
-
-
-
-
-
-
-
-## Important Change with index.php
-
-**Please** read the user guide for a better explanation of how CI4 works!
-
-## Repository Management
-
-
-## Contributing
-
-
-## Server Requirements
-
-
-## Running CodeIgniter Tests
-
-
+class Admin extends BaseController
+{
+    public function index(): string
+    {
+        return view('admin_view');
+    }
+}
+```
+maka ketika mengakses http://localhost:8080/admin 
+admin_view akan diakses.
