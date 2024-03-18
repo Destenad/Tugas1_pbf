@@ -360,6 +360,78 @@ class News extends BaseController
 ```
 Kode di atas mengambil semua catatan berita dari model dan menugaskannya ke variabel. Nilai judul juga ditetapkan ke $data['title'] elemen dan semua data diteruskan ke tampilan. Anda sekarang perlu membuat tampilan untuk merender item berita.
 
+### Buat File Tampilan berita/indeks
+Buat app/Views/news/index.php dan tambahkan potongan kode berikutnya.
+```bash
+<h2><?= esc($title) ?></h2>
+
+<?php if (! empty($news) && is_array($news)): ?>
+
+    <?php foreach ($news as $news_item): ?>
+
+        <h3><?= esc($news_item['title']) ?></h3>
+
+        <div class="main">
+            <?= esc($news_item['body']) ?>
+        </div>
+        <p><a href="/news/<?= esc($news_item['slug'], 'url') ?>">View article</a></p>
+
+    <?php endforeach ?>
+
+<?php else: ?>
+
+    <h3>No News</h3>
+
+    <p>Unable to find any news for you.</p>
+
+<?php endif ?>
+```
+Di sini, setiap item berita diulang dan ditampilkan kepada pengguna. Anda dapat melihat kami menulis template kami dalam PHP dicampur dengan HTML.
+
+### Berita Lengkap::show() Metode
+Halaman ikhtisar berita kini sudah selesai, namun halaman untuk menampilkan item berita individual masih belum ada. Model yang dibuat sebelumnya dibuat sedemikian rupa sehingga dapat dengan mudah digunakan untuk fungsi ini. Anda hanya perlu menambahkan beberapa kode ke controller dan membuat tampilan baru. Kembali ke NewsController dan perbarui show()metode dengan yang berikut:
+```bash
+<?php
+
+namespace App\Controllers;
+
+use App\Models\NewsModel;
+use CodeIgniter\Exceptions\PageNotFoundException;
+
+class News extends BaseController
+{
+    // ...
+
+    public function show($slug = null)
+    {
+        $model = model(NewsModel::class);
+
+        $data['news'] = $model->getNews($slug);
+
+        if (empty($data['news'])) {
+            throw new PageNotFoundException('Cannot find the news item: ' . $slug);
+        }
+
+        $data['title'] = $data['news']['title'];
+
+        return view('templates/header', $data)
+            . view('news/view')
+            . view('templates/footer');
+    }
+}
+```
+Jangan lupa menambahkan untuk mengimpor kelas.use CodeIgniter\Exceptions\PageNotFoundException;PageNotFoundException
+
+Daripada memanggil getNews()metode tanpa parameter, $slugvariabel dilewatkan, sehingga akan mengembalikan item berita tertentu.
+### Buat berita/lihat Lihat File
+Satu-satunya hal yang perlu dilakukan adalah membuat tampilan terkait di app/Views/news/view.php . Letakkan kode berikut di file ini.
+```bash
+<h2><?= esc($news['title']) ?></h2>
+<p><?= esc($news['body']) ?></p>
+```
+Arahkan browser Anda ke halaman “news”, yaitu localhost:8080/news , Anda akan melihat daftar item berita, yang masing-masing memiliki link untuk menampilkan satu artikel saja.
+![news](https://github.com/Destenad/Tugas1_pbf/assets/134569575/cc3e2e5b-f185-4cf7-b813-233b63bc5283)
+
 
 
 
